@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Finviz CUSTOM</title>
+        <h1>Finviz CUSTOM</h1>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <table id="buttonsTable">
+            <tr>
+                <th colspan="2">Big</th>
+                <th colspan="2">20-100</th>
+            </tr>
+            <tr>
+                <td><button class="button portfolio-buttons-normal" type="button" onclick="loadCharts('bigDaily')">Daily</button></td>
+                <td><button class="button portfolio-buttons-normal" type="button" onclick="loadCharts('bigWeekly')">Weekly</button></td>
+                <td><button class="button portfolio-buttons-normal" type="button" onclick="loadCharts('tohDaily')">Daily</button></td>
+                <td><button class="button portfolio-buttons-normal" type="button" onclick="loadCharts('tohWeekly')">Weekly</button></td>
+            </tr>
+            <tr id = "firstRow"></tr>
+            <tr id = "secondRow"></tr>
+        </table>
+        <table id="chartsTable"></table>
+        <script src="scripts.js"></script>
+    </body>
+</html>

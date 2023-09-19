@@ -7,8 +7,12 @@ import datetime
 
 filteredList = []
 def filterTickers(tickersList, listName):
+    # with open("monthlyOptionTickers.txt") as file:
+    #     for line in file:
+    #         excludedTickers = line.split(',')
+    # file.close()
+
     for ticker in tqdm(tickersList, desc = "Filtering 'big'" if listName=='big_filtered' else "Filtering '20-100'"):
-       
         data = callApi(ticker)
         if (data['status'] == "FAILED"): # Closest friday had no options, hence failed
                 pass

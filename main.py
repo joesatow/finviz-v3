@@ -1,32 +1,66 @@
 #!/usr/bin/python3
 from finviz.screener import Screener
-# from helper_funcs.folderFunctions import getCSVexportDirectory
+from helper_funcs.folderFunctions import getCSVexportDirectory
 from helper_funcs.filterFunctions import filterTickers
+from helper_funcs.webpageFunctions import generateWebPage
 import pandas as pd
 import os
 import time
 
-# # Filters
+# Filters
 bigFilters = ["sh_curvol_o200", "sh_opt_option","sh_price_o100"] # Big filter
-# tohFilters = ["sh_curvol_o2000", "sh_opt_option", "sh_price_20to100"] # 20-100 filter
+tohFilters = ["sh_curvol_o2000", "sh_opt_option", "sh_price_20to100"] # 20-100 filter
 
-# # Screening/scraping finviz process
-big_list = Screener(filters=bigFilters, order="ticker")
-# time.sleep(1)
-# toh_list = Screener(filters=tohFilters, order="ticker")
-
-# testFilter = ["sh_curvol_o20000", "sh_opt_option","sh_price_o100"]
-# test_list = Screener(filters=testFilter,order="ticker")
+# Screening/scraping finviz process
+bigScreener = Screener(filters=bigFilters, order="ticker")
+time.sleep(1)
+tohScreener = Screener(filters=tohFilters, order="ticker")
 
 print("")
 print("Converting to lists...")
 # Export CSV's
-csvStream = big_list.to_csv()
+csvStream = bigScreener.to_csv()
 df = pd.read_csv(csvStream, sep=",", header=None)
-tickersList = df[df.columns[1]].values.tolist()[1:]
+bigScreener_TickersList = df[df.columns[1]].values.tolist()[1:] # taking first column of dataframe is the tickers column.  cutting off first elemnt will remove unnecessary header.
+
+csvStream = tohScreener.to_csv()
+df = pd.read_csv(csvStream, sep=",", header=None)
+tohScreener_TickersList = df[df.columns[1]].values.tolist()[1:] # taking first column of dataframe is the tickers column.  cutting off first elemnt will remove unnecessary header.
 
 # Get and display current counts
-print("before Count: " + str(len(tickersList)))
+big_count = str(len(bigScreener_TickersList))
+toh_count = str(len(tohScreener_TickersList))
+print("Big count: " + big_count)
+print("20-100 count: " + toh_count)
 
-filtered_test_list = filterTickers(tickersList, "big_filtered")
-print("after Count: " + str(len(filtered_test_list)))
+# Filter tickers
+filtered_big_list = filterTickers(bigScreener_TickersList, "big_filtered")
+filtered_toh_list = filterTickers(tohScreener_TickersList, "toh_filtered")
+
+# Display filtered counts
+filtered_big_count = str(len(filtered_big_list))
+filtered_toh_count = str(len(filtered_toh_list))
+print("Filtered big count: " + filtered_big_count)
+print("Filtered 20-100 count: " + filtered_toh_count)
+
+# Change data on screener object to filtered ticker lists
+bigScreener.data = filtered_big_list
+tohScreener.data = filtered_toh_list
+
+# Get charts
+bigScreener.get_charts(period='d',size='m',chart_type='c',ta='0') # daily
+bigScreener.get_charts(period='w',size='m',chart_type='c',ta='0') # weekly
+tohScreener.get_charts(period='d',size='m',chart_type='c',ta='0') # daily
+tohScreener.get_charts(period='w',size='m',chart_type='c',ta='0') # daily
+
+# Generate web page
+generateWebPage(
+    filtered_big_list, 
+    filtered_toh_list,
+    [
+        big_count,
+        toh_count,
+        filtered_big_count,
+        filtered_toh_count
+    ]
+)
