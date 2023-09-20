@@ -27,7 +27,10 @@ toDate = datetime.datetime.now()
 toDate = toDate + datetime.timedelta( (4-toDate.weekday()) % 7 )
 toDate = toDate.strftime("%Y-%m-%d")
 
-apiKey = dotenv_values(".env")["apikey"]       
+try:
+     apiKey = dotenv_values(".env")["apikey"]
+except:
+      raise Exception("No key found.  Did you set your .env file?  Refer to .env.template for instructions")      
 
 @on_exception(expo, requests.exceptions.RequestException, max_time=60)
 @sleep_and_retry
