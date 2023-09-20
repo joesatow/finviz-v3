@@ -4,22 +4,35 @@ from tqdm import tqdm
 from dotenv import dotenv_values
 import requests
 import datetime
+import os
+
+filename = "monthlyOptionTickers.txt"
+if not os.path.exists(filename):
+    file = open(filename,"w")
+    file.write('FIRST')
+    file.close()
+
+file = open(filename,"r")
+excludedTickers = file.read().split(',')
+file.close()
 
 def filterTickers(tickersList, listName):
     filteredList = []
-    # with open("monthlyOptionTickers.txt") as file:
-    #     for line in file:
-    #         excludedTickers = line.split(',')
-    # file.close()
 
+    file = open(filename,"a")
     for ticker in tqdm(tickersList, desc = "Filtering 'big'" if listName=='big_filtered' else "Filtering '20-100'"):
+        if ticker in excludedTickers:
+            continue
+        
         data = callApi(ticker)
         if (data['status'] == "FAILED"): # Closest friday had no options, hence failed
-                continue
+            file.write(f',{ticker}')
+            continue
         else:
             # Add to filtered list
             filteredList.append(ticker)
-
+    file.close()
+    
     return filteredList
 
 # Get nearest friday 
