@@ -28,7 +28,7 @@ toDate = toDate + datetime.timedelta( (4-toDate.weekday()) % 7 )
 toDate = toDate.strftime("%Y-%m-%d")
 
 try:
-     apiKey = dotenv_values(".env")["apikey"]
+     apiKey = dotenv_values(".env")["APIKEY"]
 except:
       raise Exception("No key found.  Did you set your .env file?  Refer to .env.template for instructions")      
 
