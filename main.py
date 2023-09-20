@@ -32,16 +32,19 @@ big_count = str(len(bigScreener_TickersList))
 toh_count = str(len(tohScreener_TickersList))
 print("Big count: " + big_count)
 print("20-100 count: " + toh_count)
+print()
 
 # Filter tickers
 filtered_big_list = filterTickers(bigScreener_TickersList, "big_filtered")
 filtered_toh_list = filterTickers(tohScreener_TickersList, "toh_filtered")
+print()
 
 # Display filtered counts
 filtered_big_count = str(len(filtered_big_list))
 filtered_toh_count = str(len(filtered_toh_list))
 print("Filtered big count: " + filtered_big_count)
 print("Filtered 20-100 count: " + filtered_toh_count)
+print()
 
 # Change data on screener object to filtered ticker lists
 bigScreener.data = filtered_big_list
