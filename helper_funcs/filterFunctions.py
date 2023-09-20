@@ -5,8 +5,8 @@ from dotenv import dotenv_values
 import requests
 import datetime
 
-filteredList = []
 def filterTickers(tickersList, listName):
+    filteredList = []
     # with open("monthlyOptionTickers.txt") as file:
     #     for line in file:
     #         excludedTickers = line.split(',')
@@ -15,7 +15,7 @@ def filterTickers(tickersList, listName):
     for ticker in tqdm(tickersList, desc = "Filtering 'big'" if listName=='big_filtered' else "Filtering '20-100'"):
         data = callApi(ticker)
         if (data['status'] == "FAILED"): # Closest friday had no options, hence failed
-                pass
+                continue
         else:
             # Add to filtered list
             filteredList.append(ticker)
