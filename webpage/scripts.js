@@ -21,6 +21,7 @@ function setVars(arr){
 function setNums(arr){
     document.getElementById("firstRow").innerHTML = arr[0];
     document.getElementById("secondRow").innerHTML = arr[1];
+    document.getElementById("thirdRow").innerHTML = arr[6] + ',' + arr[7];
 }
 
 function loadCharts(chartType){
