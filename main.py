@@ -1,11 +1,13 @@
 #!/usr/bin/python3
-from finviz.screener import Screener
-from helper_funcs.folderFunctions import getCSVexportDirectory
+from helper_funcs.folderFunctions import runFolderChecks
 from helper_funcs.filterFunctions import filterTickers
 from helper_funcs.webpageFunctions import generateWebPage
+from finviz.screener import Screener
 import pandas as pd
-import os
 import time
+
+# Wipe chart folders, re-create new ones, set current directory
+runFolderChecks()
 
 # Filters
 bigFilters = ["sh_curvol_o200", "sh_opt_option","sh_price_o100"] # Big filter

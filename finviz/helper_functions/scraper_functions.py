@@ -70,9 +70,9 @@ def get_page_urls(page_content, rows, url):
 
     return urls
 
-currentDirectory = os.getcwd()
 def download_chart_image(page_content: requests.Response, **kwargs):
     """ Downloads a .png image of a chart into the "charts" folder. """
+    currentDirectory = os.getcwd()
     file_name = f"{kwargs['URL'].split('t=')[1]}.png"
 
     if 'chartConfig' in kwargs:
