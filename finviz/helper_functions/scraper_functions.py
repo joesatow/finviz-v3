@@ -73,7 +73,8 @@ def get_page_urls(page_content, rows, url):
 def download_chart_image(page_content: requests.Response, **kwargs):
     """ Downloads a .png image of a chart into the "charts" folder. """
     currentDirectory = os.getcwd()
-    file_name = f"{kwargs['URL'].split('t=')[1]}.png"
+    file_name = kwargs['URL'].split('t=')[1]
+    file_name = f"{file_name.split('&tf=')[0]}.png"
 
     if 'chartConfig' in kwargs:
         currentFilterVol = int(kwargs['passFilters'][0].split('_')[2][1::])

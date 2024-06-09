@@ -342,7 +342,7 @@ class Screener(object):
 
         return export_to_csv(self.headers, self.data, f"{filename}.csv")
 
-    def get_charts(self, period="d", size="l", chart_type="c", ta="1"):
+    def get_charts(self, period="d"):
         """
         Downloads the charts of all tickers shown by the table.
 
@@ -354,16 +354,12 @@ class Screener(object):
         :type chart_type: str
         :param ta: technical analysis eg.: '1' to show ta '0' to hide ta
         :type ta: str
-        """
-
-        encoded_payload = urlencode(
-            {"ty": chart_type, "ta": ta, "p": period, "s": size}
-        )
-
+        """        
+        
         sequential_data_scrape(
             scrape.download_chart_image,
             [
-                f"https://finviz.com/chart.ashx?{encoded_payload}&t={row}"
+                f"https://charts2-node.finviz.com/chart.ashx?cs=m&t={row}&tf={period}&s=linear&ct=candle_stick&tm=d"
                 for row in self.data
             ],
             self._user_agent,

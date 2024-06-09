@@ -44,3 +44,13 @@ function loadCharts(chartType){
 function loadTable(html){
     document.getElementById("chartsTable").innerHTML = html;
 }
+
+function highlightBtn(selectedButton) {
+    // Remove the 'highlighted' class from all buttons
+    document.querySelectorAll('.btn').forEach(function(button) {
+      button.classList.remove('highlighted');
+    });
+  
+    // Add the 'highlighted' class to the clicked button
+    selectedButton.classList.add('highlighted');
+  }

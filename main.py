@@ -53,10 +53,10 @@ bigScreener.data = filtered_big_list
 tohScreener.data = filtered_toh_list
 
 # Get charts
-bigScreener.get_charts(period='d',size='m',chart_type='c',ta='0') # daily
-bigScreener.get_charts(period='w',size='m',chart_type='c',ta='0') # weekly
-tohScreener.get_charts(period='d',size='m',chart_type='c',ta='0') # daily
-tohScreener.get_charts(period='w',size='m',chart_type='c',ta='0') # daily
+bigScreener.get_charts(period='d') # daily
+bigScreener.get_charts(period='w') # weekly
+tohScreener.get_charts(period='d') # daily
+tohScreener.get_charts(period='w') # daily
 
 # Generate web page
 generateWebPage(
